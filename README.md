@@ -6,7 +6,7 @@ You can use 2 different containers, one with no protection and the other protect
 docker run -d --name waas-dvwa -p 8081:80 vulnerables/web-dvwa <br>
 docker run -d --name dvwa --rm -it -p 80:80 vulnerables/web-dvwa <br>
 
-And then create hosts entries for simplicity, e.g.:
+And then create hosts entries for simplicity, e.g.:<br>
 dvwa.com	192.168.1.2<br>
 waas.dvwa.com	192.168.1.2<br>
 
